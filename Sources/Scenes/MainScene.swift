@@ -94,15 +94,14 @@ class MainScene: BaseScene, ClassificationResultDelegate {
         super.touchesEnded(touches, with: event)
         guard let first = touches.first, predict else { return }
         moveWizard(first.location(in: view))
-        
-        print(drawView.frame.contains(first.location(in: view!)))
-        let hitView = self.view!.hitTest(first.location(in: self.view!), with: event)
+
+        let hitView = view!.hitTest(first.location(in: view!), with: event)
         if hitView === drawView {
             predict = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.predict = true
-            self?.classifier.predictNumber()
-        }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.predict = true
+                self?.classifier.predictNumber()
+            }
         }
     }
     

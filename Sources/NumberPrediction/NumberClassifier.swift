@@ -14,7 +14,6 @@ public class NumberClassifier {
     private lazy var classificationRequest: VNCoreMLRequest = {
         do {
             let model = try VNCoreMLModel(for: MNIST().model)
-            dump(model)
             return VNCoreMLRequest(model: model, completionHandler: self.handleClassification)
         } catch {
             fatalError("VNCoreMLModel could not be created")
